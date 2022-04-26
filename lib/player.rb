@@ -1,26 +1,26 @@
 class Player
     attr_accessor :name, :life_points
 
-    def initialize(name_to_save)
+    def initialize(name_to_save)  #création de son personnage avec un nom perso
         @name = name_to_save
-        @life_points = 10
+        @life_points = 10 #points de vie fixe
     end
 
-    def show_state
+    def show_state #afficher l'état du joueur
         puts "                     #{name} has #{life_points} life points !"
     end
 
-    def gets_damage(damage_to_save)
+    def gets_damage(damage_to_save) #methode pour faire les dégats
         @life_points -= damage_to_save.to_i
 
-        if @life_points <= 0
+        if @life_points <= 0 #check si la personne est morte ou non 
             puts "#{name} is dead !"
         else
-            puts "#{name} has now : #{life_points} life points left"
+            puts "#{name} has now : #{life_points} life points left" #affichage des points
         end
     end
 
-    def attacks(target)
+    def attacks(target) #methode pour attaquer 
         puts "\n\n#{name} attacks #{target.name} !\n\n" 
         damage = compute_damage
         puts "*********************************\n\n"
@@ -29,15 +29,15 @@ class Player
         target.gets_damage(damage)
     end
 
-    def compute_damage
+    def compute_damage #choix aléatoire du nbr de dégats
         return rand(1..6)
     end
 end
 
-class HumanPlayer < Player
+class HumanPlayer < Player #class appelle une class
     attr_accessor :weapon_level, :life_points
 
-    def initialize(name_to_save)
+    def initialize(name_to_save) #nouveau perso attributs différents
         @name = name_to_save
         @weapon_level = 1
         @life_points = 100
@@ -47,11 +47,11 @@ class HumanPlayer < Player
         puts "#{@name} has #{@life_points} life points and a weapon level #{@weapon_level} !"
     end
 
-    def compute_damage
+    def compute_damage #dommages avec l'arme en plus 
         rand(1..6) * @weapon_level
     end
 
-    def search_weapon
+    def search_weapon 
         new_weapon_level = rand(1..6)
         puts "\n> You found a new weapon level #{new_weapon_level} !"
         gets.chomp
